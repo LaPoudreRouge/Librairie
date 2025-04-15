@@ -46,7 +46,7 @@ def book_get_info_webpage(request):
                 "authors": result['authors'],
                 "tags": result['tags']
             }
-            return  HttpResponse(f"Error: {result['authors']}")#render(request,'book/get_info/info_book.html')
+            return render(request,'book/get_info/info_book.html',context)
         else:
             return HttpResponse(f"Error: {result['error']}")
     return render(request, 'book/get_info/ask.html')
