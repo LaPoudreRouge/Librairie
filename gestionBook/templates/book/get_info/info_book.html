@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Book infos</title>
+</head>
+<body>
+    <h1>info on the book with ID: {{ book_id }}</h1>
+    <h3>Author(s):</h3>
+    <ul>
+        {% for author in authors %}
+            <li>{{ author }}</li>
+        {% endfor %}
+    </ul>
+
+    <h3>Tags:</h3>
+    <ul>
+        {% for tag in tags %}
+            <li>{{ tag }}</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
