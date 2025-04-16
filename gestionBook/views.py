@@ -9,6 +9,7 @@ from .book_management import book
 def book_add_webpage(request):
     """
     Display the webpage that allow you to input the info on the book you want to add.
+
     :param request: A POST with the info of the book to add.
     :return: An HTML webpage.
     """
@@ -43,6 +44,7 @@ def book_add_webpage(request):
 def book_get_info_webpage(request):
     """
     Display the webpage that allow you to input the book ID you want info on.
+
     :param request: A POST with the ID of the book you want info on.
     :return: An HTML webpage.
     """
