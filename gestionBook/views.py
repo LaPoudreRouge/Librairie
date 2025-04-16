@@ -62,3 +62,6 @@ def book_get_info_webpage(request):
         else:
             return HttpResponse(f"Error: {result['error']}")
     return render(request, 'book/get_info/ask.html')
+
+def main_hub(request):
+    return render(request,'main_hub/main_hub.html')

@@ -14,4 +14,5 @@ class bookTest(TestCase):
         Tag.objects.create(name='info_test_tag_2')
 
     def test_book_add(self):
-        book.add(874569,['addTestAuthor1','add_test_author_2',],['infoTestTag1','',])
+        book.add(874569,['addTestAuthor1','add_test_author_2',],['addTestTag1','add_test_tag_2',])
+        self.assertEqual(874569, Book.objects.get(book_id=874569).id)
