@@ -4,6 +4,16 @@ from typing import List
 from gestionBook.models import Author, Tag, Book, BookAndAuthor, BookAndTag
 
 def add(book_id:int, list_authors: List[str], list_tags: List[str]):
+    """
+    Add a book into the database. Additional info like authors and tags can be added too.
+    :param book_id: The ID of the book.
+    :param list_authors: A list of all the authors of the book.
+    :param list_tags: A list of all the tags of the book
+    'created': If the book has been created.
+    :returns (dict):  Return a dict confirming if it worked or not:
+        - 'created': If the book has been created.
+    :rtype: dict
+    """
     book, created = Book.objects.get_or_create(book_id=book_id,like=False)
     if not created:
         return {'created':False}
@@ -28,6 +38,16 @@ def add(book_id:int, list_authors: List[str], list_tags: List[str]):
 
 
 def get_info(book_id):
+    """
+    Gets all the infos linked to this book. (like, authors, tags)
+    :param book_id: The ID of the book you want info on.
+    :returns (dict): A dictionary containing if the function succeeded and the infos asked:
+        - 'success' (bool): A boolean indicating if the operation was successful.
+        - 'like' (bool): If the book has been liked.
+        - 'authors' : A list of authors associated with the book.
+        - 'tags' (list of str): A list of tags related to the book.
+    :rtype: dict
+    """
     try:
         book = Book.objects.get(book_id=book_id)
     except Book.DoesNotExist as e:
