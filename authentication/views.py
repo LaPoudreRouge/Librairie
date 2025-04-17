@@ -54,7 +54,6 @@ def login(request):
 
 
 def logout(request):
-    request.session.clear()
 
     return redirect(
         f"https://{settings.AUTH0_DOMAIN}/v2/logout?"
