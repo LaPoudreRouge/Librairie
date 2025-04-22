@@ -32,7 +32,12 @@
     {% else %}
 
         <h1>You need to be logged in to do this action</h1>
-        <p><a href="{% url 'login' %}" id="qsLoginBtn">Login</a></p>
+            <form action="{% url 'login' %}" method="post">
+                {% csrf_token %}
+                <input type="hidden" name="redirect_url" value="personal_collection_add">
+
+                <input type="submit" value="Login">
+            </form>
 
     {% endif %}
 

@@ -44,10 +44,13 @@ def callback(request):
     if user is not None:
         auth.login(request, user)
 
-    return redirect(request.build_absolute_uri(reverse("index")))
+    redirect_after_login_url = request.session.pop('redirect_url', 'index')
+    return redirect(request.build_absolute_uri(reverse(redirect_after_login_url)))
 
 
 def login(request):
+    if request.method == 'POST':
+        request.session['redirect_url'] = request.POST.get('redirect_url')
     return oauth.auth0.authorize_redirect(
         request, request.build_absolute_uri(reverse("callback"))
     )
