@@ -17,6 +17,7 @@ def persColl_add_webpage(request):
                 return render(request,
                               'personal_collection/add/webpage.html',
                               {
+                                  "connected":True,
                                   "added" : True,
                                   "book_id": book_id,
                                   "account_name":request.user.username,
@@ -30,8 +31,13 @@ def persColl_add_webpage(request):
             return render(request,
                               'personal_collection/add/webpage.html',
                               {
-                                  "added" : False,
+                              "connected": True,
+                              "added" : False,
                               })
 
     else:
-        return HttpResponse("Not connected.")
+        return render(request,
+                      'personal_collection/add/webpage.html',
+                      {
+                          "connected": False,
+                      })

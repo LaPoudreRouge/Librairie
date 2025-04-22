@@ -6,24 +6,33 @@
     <title>Add a book</title>
 </head>
 <body>
-    {% if added %}
+    {% if connected %}
 
-    <h1>The book with ID: {{ book_id }} has been added into your account</h1>
-    <h3>Account:{{ account_name }}(ID:{{ account_id }})</h3>
+        {% if added %}
 
-    <h3>Book: {{ book_id }}</h3>
+            <h1>The book with ID: {{ book_id }} has been added into your account</h1>
+            <h3>Account:{{ account_name }}(ID:{{ account_id }})</h3>
 
+            <h3>Book: {{ book_id }}</h3>
+
+
+        {% else %}
+
+            <h1>Book ID:</h1>
+            <form action="" method="post">
+                {% csrf_token %}
+                <label for="bookID">Book ID:</label>
+                <input type="number" id="bookID" name="bookID"><br><br>
+
+                <input type="submit" value="Add">
+            </form>
+
+        {% endif %}
 
     {% else %}
 
-    <h1>Book ID:</h1>
-    <form action="" method="post">
-        {% csrf_token %}
-        <label for="bookID">Book ID:</label>
-        <input type="number" id="bookID" name="bookID"><br><br>
-
-        <input type="submit" value="Add">
-    </form>
+        <h1>You need to be logged in to do this action</h1>
+        <p><a href="{% url 'login' %}" id="qsLoginBtn">Login</a></p>
 
     {% endif %}
 
