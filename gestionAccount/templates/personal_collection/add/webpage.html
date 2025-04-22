@@ -6,7 +6,6 @@
     <title>Add a book</title>
 </head>
 <body>
-    {% if connected %}
 
         {% if added %}
 
@@ -28,13 +27,6 @@
             </form>
 
         {% endif %}
-
-    {% else %}
-
-        <h1>You need to be logged in to do this action</h1>
-        <p><a href="{% url 'login' %}" id="qsLoginBtn">Login</a></p>
-
-    {% endif %}
 
 </body>
 </html>
