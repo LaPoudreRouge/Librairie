@@ -65,4 +65,8 @@ def book_get_info_webpage(request):
     return render(request, 'book/get_info/ask.html')
 
 def main_hub(request):
-    return render(request,'main_hub/main_hub.html')
+    return render(
+        request,
+        'main_hub/main_hub.html',
+        {"logged_in":request.user.is_authenticated}
+    )

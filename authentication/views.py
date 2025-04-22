@@ -43,7 +43,7 @@ def callback(request):
     if user is not None:
         auth.login(request, user)
 
-    redirect_url = request.session.pop('redirect_url', 'index')
+    redirect_url = request.session.pop('redirect_url', 'auth0.index')
     return redirect(request.build_absolute_uri(reverse(redirect_url)))
 
 
@@ -62,7 +62,7 @@ def logout(request):
         f"https://{settings.AUTH0_DOMAIN}/v2/logout?"
         + urlencode(
             {
-                "returnTo": request.build_absolute_uri(reverse("index")),
+                "returnTo": request.build_absolute_uri(reverse("auth0.index")),
                 "client_id": settings.AUTH0_CLIENT_ID,
             },
             quote_via=quote_plus,

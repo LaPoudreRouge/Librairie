@@ -5,7 +5,7 @@ from authentication.connexion_decorator import require_connexion
 
 # Create your views here.
 
-@require_connexion("personal_collection_add")
+@require_connexion("personal_collection.add_w")
 def persColl_add_webpage(request):
     if request.method == 'POST':
 

@@ -7,9 +7,29 @@
 <h1>Choose the action you want to do:</h1>
 <body>
 <ul>
+
+    <li><h2>Account :</h2><ul>
+
+        <li><a href="{% url 'auth0.index' %}">Connexion</a></li>
+
+        {% if logged_in %}
+
+        <li><h3>Personal collection</h3><ul>
+
+            <li><a href="{% url 'personal_collection.add_w' %}">Add</a></li>
+        </ul></li>
+        {% endif %}
+
+    </ul></li>
+
+
     <li><h2>Book :</h2><ul>
-        <li><a href="./book/add">Add a book</a></li>
-        <li><a href="./book/get_info">Get info on a book</a></li>
+
+        {% if logged_in %}
+        <li><a href="{% url 'book.add_w' %}">Add a book</a></li>
+        {% endif %}
+        <li><a href="{% url 'book.get_info_w' %}">Get info on a book</a></li>
+
     </ul></li>
 
 
