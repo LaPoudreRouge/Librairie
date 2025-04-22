@@ -6,7 +6,6 @@
     <title>Add a book</title>
 </head>
 <body>
-    {% if connected %}
 
         {% if added %}
 
@@ -28,18 +27,6 @@
             </form>
 
         {% endif %}
-
-    {% else %}
-
-        <h1>You need to be logged in to do this action</h1>
-            <form action="{% url 'login' %}" method="post">
-                {% csrf_token %}
-                <input type="hidden" name="redirect_url" value="personal_collection_add">
-
-                <input type="submit" value="Login">
-            </form>
-
-    {% endif %}
 
 </body>
 </html>
