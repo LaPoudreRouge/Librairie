@@ -1,7 +1,6 @@
-import json
 from authlib.integrations.django_client import OAuth
 from django.conf import settings
-from django.shortcuts import redirect, render, redirect
+from django.shortcuts import render, redirect
 from django.urls import reverse
 from urllib.parse import quote_plus, urlencode
 from django.contrib.auth.models import User
@@ -44,8 +43,8 @@ def callback(request):
     if user is not None:
         auth.login(request, user)
 
-    redirect_after_login_url = request.session.pop('redirect_url', 'index')
-    return redirect(request.build_absolute_uri(reverse(redirect_after_login_url)))
+    redirect_url = request.session.pop('redirect_url', 'index')
+    return redirect(request.build_absolute_uri(reverse(redirect_url)))
 
 
 def login(request):

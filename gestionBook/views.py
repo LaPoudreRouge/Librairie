@@ -1,11 +1,12 @@
 from django.http import HttpResponse
 from django.shortcuts import render
-
+from authentication.connexion_decorator import require_connexion
 from .book_management import book
 
 
 # Create your views here.
 
+@require_connexion("book.add_w")
 def book_add_webpage(request):
     """
     Display the webpage that allow you to input the info on the book you want to add.
