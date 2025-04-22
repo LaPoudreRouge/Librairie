@@ -24,4 +24,5 @@ urlpatterns = [
     path('book/',include('gestionBook.urls')),
     path('',main_hub),
     path('auth0/',include('authentication.urls')),
+    path("account/",include('gestionAccount.urls'))
 ]
