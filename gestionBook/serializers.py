@@ -1,9 +1,14 @@
-from rest_framework.serializers import ModelSerializer
-
-from .models import Book
+from rest_framework import serializers
 
 
-class BookSerializer(ModelSerializer):
-    class Meta:
-        model = Book
-        fields = ['book_id', 'like']
+
+
+class BookSerializer(serializers.Serializer):
+    book_id = serializers.IntegerField()
+    like = serializers.BooleanField()
+    authors = serializers.ListField(child=serializers.CharField())
+    tags = serializers.ListField(child=serializers.CharField())
+
+    def create(self, validated_data):
+        from . import book_management as bm
+        pass

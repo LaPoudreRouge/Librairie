@@ -1,7 +1,7 @@
 from django.http import HttpResponse
 from django.shortcuts import render
 from authentication.connexion_decorator import require_connexion
-from .book_management import book
+from . import book_management as bm
 
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -31,7 +31,7 @@ def book_add_webpage(request):
         tags_list = [tag.strip() for tag in tags_raw.split(' ')]
 
         # register it in the database
-        result = book.add(book_id, authors_list, tags_list)
+        result = bm.book.add(book_id, authors_list, tags_list)
 
         # check if success or already present
         if result["created"]:
@@ -58,7 +58,7 @@ def book_get_info_webpage(request):
     if request.method == 'POST':
         book_id = request.POST.get('bookID')
 
-        result = book.get_info(book_id)
+        result = bm.book.get_info(book_id)
         if result['success']:
             context = {
                 "book_id": book_id,
@@ -82,6 +82,18 @@ def main_hub(request):
 class BookAPIView(APIView):
 
     def get(self, *args, **kwargs):
-        categories = Book.objects.all()
-        serializer = BookSerializer(categories, many=True)
+        book_list = Book.objects.all()
+        data = []
+        for book in book_list:
+            result = bm.book.get_info(book.book_id)
+            if result['success']:
+                data.append({
+                    'book_id': book.book_id,
+                    'like': result['like'],
+                    'authors':result['authors'],
+                    'tags': result['tags'],
+                })
+
+        serializer = BookSerializer(data, many=True)
         return Response(serializer.data)
+
