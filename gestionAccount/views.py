@@ -33,3 +33,15 @@ def persColl_add_webpage(request):
                           "added" : False,
                           })
 
+
+def persColl_view_webpage(request):
+    response = personal_collection.view(request.user)
+    books = response["books"]
+
+    return render(
+        request,
+        "personal_collection/view/all_in_one_page.html",
+        {
+            "books":books,
+        }
+    )
