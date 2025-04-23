@@ -3,6 +3,12 @@ from django.shortcuts import render
 from authentication.connexion_decorator import require_connexion
 from .book_management import book
 
+from rest_framework.views import APIView
+from rest_framework.response import Response
+
+from .models import Book
+from .serializers import BookSerializer
+
 
 # Create your views here.
 
@@ -70,3 +76,12 @@ def main_hub(request):
         'main_hub/main_hub.html',
         {"logged_in":request.user.is_authenticated}
     )
+
+
+
+class BookAPIView(APIView):
+
+    def get(self, *args, **kwargs):
+        categories = Book.objects.all()
+        serializer = BookSerializer(categories, many=True)
+        return Response(serializer.data)

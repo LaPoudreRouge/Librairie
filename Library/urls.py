@@ -18,11 +18,16 @@ from django.contrib import admin
 from django.urls import path, include
 from gestionBook.views import main_hub
 
+from gestionBook.views import BookAPIView
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('book/',include('gestionBook.urls')),
     path('',main_hub),
     path('auth0/',include('authentication.urls')),
-    path("account/",include('gestionAccount.urls'))
+    path("account/",include('gestionAccount.urls')),
+
+    path('api-auth/', include('rest_framework.urls')),
+    path('api/book/', BookAPIView.as_view()),
 ]
