@@ -3,13 +3,14 @@ from typing import List
 from gestionBook.models import Author, Tag, Book, BookAndAuthor, BookAndTag
 
 
-def add(book_id: int, list_authors: List[str], list_tags: List[str]):
+def add(book_id: int, list_authors: List[str], list_tags: List[str], liked = False):
     """
         Add a book into the database. Additional info like authors and tags can be added too.
 
         :param int book_id: The ID of the book.
         :param List[str] list_authors: A list of all the authors of the book.
         :param List[str] list_tags: A list of all the tags of the book
+        :param bool liked: If the book have been liked.
 
         :returns (dict):  Return a dict confirming if it worked or not:
 
@@ -17,18 +18,18 @@ def add(book_id: int, list_authors: List[str], list_tags: List[str]):
 
         :rtype: dict
     """
-    book, created = Book.objects.get_or_create(book_id=book_id, like=False)
+    book, created = Book.objects.get_or_create(book_id=book_id, like=liked)
     if not created:
         return {'created': False}
 
     authors_to_add = []
     for author in list_authors:
-        author_obj, _ = Author.objects.get_or_create(name=author)
+        author_obj, _ = Author.objects.get_or_create(name=author.lower())
         authors_to_add.append(author_obj)
 
     tags_to_add = []
     for tag in list_tags:
-        tag_obj, _ = Tag.objects.get_or_create(name=tag)
+        tag_obj, _ = Tag.objects.get_or_create(name=tag.lower())
         tags_to_add.append(tag_obj)
 
     for tag_to_add in tags_to_add:

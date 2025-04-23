@@ -5,6 +5,7 @@ from . import book_management as bm
 
 from rest_framework.views import APIView
 from rest_framework.response import Response
+from rest_framework import status
 
 from .models import Book
 from .serializers import BookSerializer
@@ -96,4 +97,11 @@ class BookAPIView(APIView):
 
         serializer = BookSerializer(data, many=True)
         return Response(serializer.data)
+
+    def post(self, request):
+        serializer = BookSerializer(data=request.data)
+        if serializer.is_valid():
+            book = serializer.save()
+            return Response({"message": "Book created successfully."})
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
